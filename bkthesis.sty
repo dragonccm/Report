@@ -1,0 +1,208 @@
+\ProvidesPackage{bkthesis}
+
+\RequirePackage{graphicx}
+\RequirePackage{vietnam}
+\RequirePackage{geometry}
+\RequirePackage{tikz}
+\usetikzlibrary{calc}
+\RequirePackage{indentfirst}
+\RequirePackage{longtable}
+
+% ========== Layout ==========
+\newcommand{\thesislayout}{%
+  \geometry{
+    a4paper,
+    total={160mm,247mm},
+    left=30mm, top=20mm, right=20mm, bottom=20mm
+  }%
+}
+
+% ========== Metadata ==========
+\newcommand{\@sdeptname}{\textbf{KHOA CÔNG NGHỆ THÔNG TIN}}
+\newcommand{\csdeptname}[1]{\renewcommand{\@sdeptname}{#1}}
+
+\newcommand{\@stuname}{}
+\newcommand{\cstuname}[1]{\renewcommand{\@stuname}{#1}}
+
+\newcommand{\@mssv}{}
+\newcommand{\mssv}[1]{\renewcommand{\@mssv}{#1}}
+
+\newcommand{\@sSupervise}{TS. Nguyễn Văn A}
+\newcommand{\csSupervise}[1]{\renewcommand{\@sSupervise}{#1}}
+
+\newcommand{\@ttime}{\today}
+\newcommand{\cttime}[1]{\renewcommand{\@ttime}{#1}}
+
+\newcommand{\@rname}{\textbf{THỰC TẬP TỐT NGHIỆP ĐẠI HỌC}}
+\newcommand{\crname}[1]{\renewcommand{\@rname}{#1}}
+
+% ========== Cover Page ==========
+\newsavebox\thesmashminipage
+\newenvironment{smashminipage}
+  {\begin{lrbox}{\thesmashminipage}\begin{minipage}[t]{\textwidth}}
+  {\end{minipage}\end{lrbox}\smash{\usebox{\thesmashminipage}}\clearpage}
+\newcommand{\coverpagebandau}{%
+  \pagestyle{empty}
+  \begin{smashminipage}
+    \begin{tikzpicture}[remember picture, overlay]
+      \draw [line width=1pt]
+        ($(current page.north west)+(3.0cm,-2.0cm)$)
+        rectangle
+        ($(current page.south east)+(-1.5cm,1.5cm)$);
+      \draw [line width=3pt]
+        ($(current page.north west)+(3.15cm,-2.15cm)$)
+        rectangle
+        ($(current page.south east)+(-1.65cm,1.65cm)$); 
+    \end{tikzpicture}
+    \begin{center}
+    {\fontsize{14}{16}\selectfont TRƯỜNG ĐẠI HỌC KỸ THUẬT – CÔNG NGHỆ CẦN THƠ}\\
+    \@sdeptname \\[0.5cm]
+      \textbf{-------------------- * ---------------------}\\[1cm]
+      \includegraphics[scale=0.4]{img/logoCTUT.png}\\[0.5cm]
+      {\fontsize{16}{1}\selectfont \@rname }\\[0.4cm]
+      {\fontsize{14}{1}\selectfont \textbf{Ngành: Kỹ thuật phần mềm}}\\[2.2cm]
+      {\fontsize{18}{1}\selectfont \textbf{\parbox[c][3cm]{14cm}{\centering \@title}} }\\[1cm]
+
+    \end{center}
+
+    % {\fontsize{15}{1}\selectfont
+    % \hspace{2cm}
+    % \begin{tabular}{@{}cc@{}}
+    %   \begin{minipage}[t]{0.35\textwidth}
+    %     \raggedright
+    %     {Giảng viên hướng dẫn:}\\
+    %     \@sSupervise
+    %   \end{minipage} &
+    %   \begin{minipage}[t]{0.5\textwidth}
+    %     \raggedright
+    %     {Sinh viên thực hiện:}\\
+    %     \@stuname
+    %   \end{minipage}
+    % \end{tabular}}
+    \begin{center}
+        {\fontsize{14}{1}\selectfont\@stuname}
+    \end{center}
+
+    \vspace{8cm}
+    \begin{center}
+      {\fontsize{14}{1}\selectfont TP. CẦN THƠ, \@ttime }
+    \end{center}
+  \end{smashminipage}
+}
+\newcommand{\coverpage}{%
+  \pagestyle{empty}
+  \begin{smashminipage}
+    \begin{tikzpicture}[remember picture, overlay]
+      \draw [line width=1pt]
+        ($(current page.north west)+(3.0cm,-2.0cm)$)
+        rectangle
+        ($(current page.south east)+(-1.5cm,1.5cm)$);
+      \draw [line width=3pt]
+        ($(current page.north west)+(3.15cm,-2.15cm)$)
+        rectangle
+        ($(current page.south east)+(-1.65cm,1.65cm)$); 
+    \end{tikzpicture}
+    \begin{center}
+    {\fontsize{14}{16}\selectfont TRƯỜNG ĐẠI HỌC KỸ THUẬT – CÔNG NGHỆ CẦN THƠ}\\
+    \@sdeptname \\[0.5cm]
+      \textbf{-------------------- * ---------------------}\\[1cm]
+      \includegraphics[scale=0.4]{img/logoCTUT.png}\\[0.5cm]
+      {\fontsize{16}{1}\selectfont \@rname }\\[0.4cm]
+      {\fontsize{14}{1}\selectfont \textbf{Ngành: Kỹ thuật phần mềm}}\\[2.2cm]
+      {\fontsize{18}{1}\selectfont \textbf{\parbox[c][3cm]{14cm}{\centering \@title}} }\\[1cm]
+
+    \end{center}
+
+    {\fontsize{14}{1}\selectfont
+    \hspace{2cm}
+    \begin{tabular}{@{}cc@{}}
+      \begin{minipage}[t]{0.5\textwidth}
+        \raggedright
+        {Cán bộ hướng dẫn:}\\
+        \@sSupervise
+      \end{minipage} &
+      \begin{minipage}[t]{0.5\textwidth}
+        \raggedright
+        {Sinh viên thực hiện:}\\
+        \@stuname \par
+        \vspace{10pt}
+
+        \textbf{MSSV: }\@mssv
+      \end{minipage}
+    \end{tabular}}
+
+
+
+    \vspace{7cm}
+    \begin{center}
+      {\fontsize{14}{1}\selectfont TP. CẦN THƠ, \@ttime }
+    \end{center}
+  \end{smashminipage}
+}
+
+% ========== Generic section environment ==========
+% Macro tạo môi trường section đặc biệt
+\newcommand{\thesissectionenv}[2]{%
+  \newenvironment{#1}{%
+    \clearpage\begin{center}{\Large\bfseries #2\vspace{24pt}}\end{center}\quotation}%
+    {\endquotation}%
+}
+
+% Định nghĩa các môi trường
+\thesissectionenv{declaration}{LỜI CAM ĐOAN}
+\thesissectionenv{acknowledgments}{LỜI CẢM ƠN}
+\thesissectionenv{evaluationform}{PHIẾU ĐÁNH GIÁ CỦA CƠ QUAN}
+\thesissectionenv{evaluationteacher}{XÁC NHẬN CỦA GIẢNG VIÊN}
+\thesissectionenv{tomluoc}{TÓM LƯỢC}
+\thesissectionenv{category}{DANH MỤC VIẾT TẮT VÀ THUẬT NGỮ}
+\thesissectionenv{objectivesandscope}{MỤC TIÊU VÀ PHẠM VI THỰC TẬP}
+\thesissectionenv{method}{PHƯƠNG PHÁP NGHIÊN CỨU VÀ BỐ CỤC}
+\thesissectionenv{refs}{TÀI LIỆU THAM KHẢO}
+\newenvironment{abstract}{
+  \clearpage
+  \begin{center}
+    {\Large\bfseries LỜI MỞ ĐẦU\vspace{24pt}}
+  \end{center}
+
+  % Reset và đổi numbering section sang La Mã thường (i, ii, iii)
+  \setcounter{section}{0}
+  \renewcommand\thesection{\arabic{section}} 
+
+  % Font nội dung 13pt
+  \fontsize{13}{15}\selectfont
+
+  % Style section = 14pt bold
+  \titleformat{\section}[hang]
+    {\bfseries\fontsize{14}{16}\selectfont} % cỡ chữ 14
+    {\thesection.}{1em}{}
+
+  \titlespacing*{\section}{0pt}{6pt}{6pt}
+
+  % Subsection = 13pt đậm
+  \titleformat{\subsection}[hang]
+    {\bfseries\fontsize{13}{15}\selectfont}
+    {\thesubsection}{1em}{}
+  \titlespacing*{\subsection}{0pt}{4pt}{4pt}
+
+}{}
+
+
+
+
+
+% ========== Bảng phân công ==========
+\newcommand{\phancongcongviec}{%
+  \clearpage
+  \begin{center}{\Large\bfseries BẢNG PHÂN CÔNG NHIỆM VỤ\vspace{24pt}}\end{center}
+  \begin{center}
+    \begin{longtable}{|m{5cm}|m{10cm}|}
+      \hline
+      \multicolumn{2}{|c|}{\textbf{Bảng phân công nhiệm vụ}}\\\hline
+      \textbf{Họ và tên} & \textbf{Nhiệm vụ}\\\hline
+      Ung Phát Tài &
+        \begin{itemize}\item \end{itemize} \\\hline
+      Đỗ Mỹ Xuyên &
+        \begin{itemize}\item \end{itemize} \\\hline
+    \end{longtable}
+  \end{center}
+}
